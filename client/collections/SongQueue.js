@@ -3,15 +3,13 @@ var SongQueue = Songs.extend({
 
   initialize: function(){
 
-    this.on('ended', function(song) {
+    this.on('ended dequeue', function(song) {
       this.remove(song);
     }, this);
   },
 
   playFirst: function() {
-    if (this.length > 0) {
-      this.at(0).play();
-    }
+    this.at(0).play();
   },
 
   add: function() {
@@ -27,7 +25,8 @@ var SongQueue = Songs.extend({
       currentlyPlaying = true;
     }
     Songs.prototype.remove.apply(this, arguments);
-    if(currentlyPlaying) {
+    if((currentlyPlaying)&&(this.length > 0))
+    {
       this.playFirst();
     }
   }
