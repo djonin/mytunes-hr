@@ -17,6 +17,22 @@ describe('SongModel', function() {
     });
   });
 
+  describe('upvote', function() {
+    it('increases the rating', function() {
+      var previousRating = model.get('rating');
+      model.upvote();
+      expect(model.get('rating')).to.equal(previousRating+1);
+    });
+  });
+
+  describe('downvote', function() {
+    it('decreases the rating', function() {
+      var previousRating = model.get('rating');
+      model.downvote();
+      expect(model.get('rating')).to.equal(previousRating-1);
+    });
+  });
+
   describe('enqueue', function() {
     it('triggers an "enqueue" event', function() {
       model.enqueue();

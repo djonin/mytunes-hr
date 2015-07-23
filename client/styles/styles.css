@@ -1,0 +1,22 @@
+.body {
+    font: bold;
+}
+
+.vote {
+  height: 13px;
+  width: 15px;
+  display:inline;
+}
+
+.rating {
+  font: normal x-small verdana,arial,helvetica,sans-serif;
+  display:inline;
+  font-weight: bold;
+  font-size: small;
+  text-align: center;
+  color: #c6c6c6;
+}
+
+.played {
+  font: normal small verdana,arial,helvetica,sans-serif;
+}

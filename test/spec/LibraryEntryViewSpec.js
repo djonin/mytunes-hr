@@ -22,6 +22,18 @@ describe('LibraryEntryView', function() {
     SongModel.prototype.play.restore();
   });
 
+  it('upvotes upvoted songs', function(){
+    sinon.spy(SongModel.prototype, 'upvote');
+    view.$el.children().first().find('.upvote').click();
+    expect(model.upvote).to.have.been.called;
+  });
+
+  it('downvotes downvoted songs', function(){
+    sinon.spy(SongModel.prototype, 'downvote');
+    view.$el.children().first().find('.downvote').click();
+    expect(model.downvote).to.have.been.called;
+  });
+
   it('queues clicked songs', function(){
     sinon.spy(SongModel.prototype, 'enqueue');
 
