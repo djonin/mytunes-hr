@@ -3,9 +3,28 @@
 }
 
 .vote {
+  cursor:pointer;
+  cursor:hand;
   height: 13px;
   width: 15px;
-  display:inline;
+  display:inline-block;
+}
+
+.vote:active {
+    padding-top:2px;
+}
+
+.artist {
+  font-size:small;
+}
+
+.title {
+  cursor:pointer;
+  cursor:hand;
+}
+
+.title:hover {
+  font-weight: bold;
 }
 
 .rating {
