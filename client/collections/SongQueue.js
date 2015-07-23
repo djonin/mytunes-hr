@@ -9,7 +9,8 @@ var SongQueue = Songs.extend({
   },
 
   playFirst: function() {
-    this.at(0).play();
+    if(this.at(0))
+      this.at(0).play();
   },
 
   add: function(song) {

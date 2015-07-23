@@ -5,7 +5,7 @@
      below them until after the scripts load-->
 
     <link rel="stylesheet" href="styles/styles.css">
-     
+
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/backbone/backbone.js"></script>
@@ -25,10 +25,41 @@
     <script src="views/AppView.js"></script>
 
     <script>
+
       $(function(){
         // set up model objects
-        var library = new Songs(songData);
+        var library;
         var songQueue = new SongQueue();
+        if(localStorage.getItem('library'))
+        {
+            //populate the library
+            library = new Songs();
+            var save = JSON.parse(localStorage.getItem('library'));
+            for(var k in save) {
+                var song = new SongModel();
+                for (var j in save[k]) {
+                    song.attributes[j] = save[k][j];
+                }
+                library.add(song);
+            }
+
+            save = JSON.parse(localStorage.getItem('queue'));
+
+            if(save) {
+                //populate the queue
+                for(var i = 0; i<save.length; i++) {
+                  for(m in library.models) {
+                    if(library.models[m].attributes.url === save[i].url) {
+                      songQueue.add(library.models[m]);
+                      break;
+                    }
+                  }
+                }
+            }
+
+        } else {
+            library = new Songs(songData);
+        }
         var app = new AppModel({library: library, songQueue: songQueue});
 
         // build a view for the top level of the whole app
@@ -36,6 +67,12 @@
 
         // put the view onto the screen
         $('body').append(appView.render());
+
+        window.onbeforeunload = function() {
+            localStorage.setItem('library', JSON.stringify(library));
+            localStorage.setItem('queue', JSON.stringify(songQueue));
+        // ...
+        };
       });
     </script>
   </body>

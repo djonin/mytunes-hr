@@ -23,6 +23,8 @@ var AppView = Backbone.View.extend({
     this.model.on('enqueue dequeue ended', function(model) {
       this.songQueueView.render();
     }, this);
+
+    this.model.get('songQueue').playFirst();
   },
 
   render: function(){
