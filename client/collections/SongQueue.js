@@ -12,9 +12,10 @@ var SongQueue = Songs.extend({
     this.at(0).play();
   },
 
-  add: function() {
+  add: function(song) {
+    var currentlyPlaying = (this.at(0)===song);
     Songs.prototype.add.apply(this, arguments);
-    if (this.length === 1) {
+    if ((this.length === 1)&&(!currentlyPlaying)) {
       this.playFirst();
     }
   },
@@ -28,6 +29,9 @@ var SongQueue = Songs.extend({
     if((currentlyPlaying)&&(this.length > 0))
     {
       this.playFirst();
+    }
+    if(this.length === 0) {
+      this.trigger('empty');
     }
   }
 
