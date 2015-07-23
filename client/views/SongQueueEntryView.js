@@ -11,6 +11,7 @@ var SongQueueEntryView = Backbone.View.extend({
 
       // clicking the item, removes the song from the queue
     }
+
   },
 
   render: function(){

@@ -2,6 +2,10 @@
 var SongQueue = Songs.extend({
 
   initialize: function(){
+
+    this.on('ended', function(song) {
+      this.remove(song);
+    }, this);
   },
 
   playFirst: function() {
@@ -17,9 +21,13 @@ var SongQueue = Songs.extend({
     }
   },
 
-  remove: function() {
+  remove: function(song) {
+    var currentlyPlaying = false;
+    if (this.at(0) === song) {
+      currentlyPlaying = true;
+    }
     Songs.prototype.remove.apply(this, arguments);
-    if (this.length > 0) {
+    if(currentlyPlaying) {
       this.playFirst();
     }
   }
